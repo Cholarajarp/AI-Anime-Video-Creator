@@ -2,6 +2,9 @@
 # ================
 # Git ignore file for the project
 
+# Project release / binary
+4.44.0
+
 # Python
 __pycache__/
 *.py[cod]
