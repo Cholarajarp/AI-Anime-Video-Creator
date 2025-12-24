@@ -1,0 +1,164 @@
+# =============================================================================
+# AI Video Creator - Application Settings Configuration
+# =============================================================================
+
+app:
+  name: "Anime Video Creator"
+  version: "1.0.0"
+  description: "Next-Generation Anime Video Synthesis Platform"
+
+# Server settings
+server:
+  host: "0.0.0.0"
+  port: 7860
+  workers: 1
+  reload: false
+
+# ComfyUI Backend
+comfyui:
+  host: "127.0.0.1"
+  port: 8188
+  timeout: 600
+  retry_attempts: 3
+  retry_delay: 5
+
+# Video generation defaults
+video:
+  default_fps: 15
+  default_width: 512
+  default_height: 512
+  max_frames: 120
+  supported_formats:
+    - mp4
+    - webm
+    - gif
+
+# Audio settings
+audio:
+  default_voice: "ja-JP-NanamiNeural"
+  format: "mp3"
+  sample_rate: 22050
+
+# Available anime voices (curated list)
+voices:
+  japanese_female:
+    - id: "ja-JP-NanamiNeural"
+      name: "Nanami (Japanese Female)"
+      style: "Energetic Anime Girl"
+    - id: "ja-JP-AoiNeural"
+      name: "Aoi (Japanese Female)"
+      style: "Gentle & Soft"
+    - id: "ja-JP-MayuNeural"
+      name: "Mayu (Japanese Female)"
+      style: "Mature & Calm"
+  japanese_male:
+    - id: "ja-JP-KeitaNeural"
+      name: "Keita (Japanese Male)"
+      style: "Young & Dynamic"
+    - id: "ja-JP-DaichiNeural"
+      name: "Daichi (Japanese Male)"
+      style: "Deep & Confident"
+  english:
+    - id: "en-US-AriaNeural"
+      name: "Aria (English Female)"
+      style: "Narrator Style"
+    - id: "en-US-JennyNeural"
+      name: "Jenny (English Female)"
+      style: "Friendly & Warm"
+    - id: "en-US-GuyNeural"
+      name: "Guy (English Male)"
+      style: "Professional"
+  hindi:
+    - id: "hi-IN-SwaraNeural"
+      name: "Swara (Hindi Female)"
+      style: "Expressive & Warm"
+    - id: "hi-IN-MadhurNeural"
+      name: "Madhur (Hindi Male)"
+      style: "Professional & Clear"
+  kannada:
+    - id: "kn-IN-SapnaNeural"
+      name: "Sapna (Kannada Female)"
+      style: "Melodic & Pleasant"
+    - id: "kn-IN-GaganNeural"
+      name: "Gagan (Kannada Male)"
+      style: "Deep & Authoritative"
+
+# Anime model presets
+models:
+  checkpoints:
+    - name: "DreamShaper 8"
+      file: "dreamshaper_8.safetensors"
+      description: "Semi-realistic anime style"
+    - name: "MeinaMix v11"
+      file: "meinamix_v11.safetensors"
+      description: "Pure 2D anime style"
+    - name: "Counterfeit V3"
+      file: "counterfeit_v3.safetensors"
+      description: "High-quality illustration"
+    - name: "Anything V5"
+      file: "anything_v5.safetensors"
+      description: "General purpose anime"
+
+  motion_modules:
+    - name: "AnimateDiff v2"
+      file: "mm_sd_v15_v2.ckpt"
+      description: "Standard motion module"
+    - name: "AnimateDiff v3"
+      file: "mm_sd_v15_v3.ckpt"
+      description: "Enhanced motion quality"
+
+# Generation presets
+presets:
+  quality:
+    draft:
+      steps: 15
+      cfg_scale: 6.0
+      width: 384
+      height: 384
+    standard:
+      steps: 20
+      cfg_scale: 7.0
+      width: 512
+      height: 512
+    high:
+      steps: 30
+      cfg_scale: 7.5
+      width: 768
+      height: 768
+
+  motion:
+    static:
+      motion_scale: 0.0
+      description: "No movement"
+    subtle:
+      motion_scale: 0.5
+      description: "Gentle breathing/blinking"
+    moderate:
+      motion_scale: 1.0
+      description: "Natural movement"
+    dynamic:
+      motion_scale: 1.5
+      description: "Active movement"
+
+# Prompt templates
+templates:
+  quality_prefix: "masterpiece, best quality, highly detailed, anime"
+  negative_base: "lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry"
+
+# Queue settings
+queue:
+  max_concurrent: 2
+  timeout: 600
+  priority_levels:
+    - high
+    - normal
+    - low
+
+# Storage settings
+storage:
+  output_dir: "./outputs"
+  temp_dir: "./temp"
+  max_storage_gb: 50
+  auto_cleanup: true
+  cleanup_after_days: 7
+

@@ -1,0 +1,50 @@
+{
+  "name": "Default Anime Character",
+  "version": "1.0.0",
+  "author": "AI Video Creator",
+  "description": "Default anime character template for video generation",
+  "resolution": {
+    "width": 512,
+    "height": 512
+  },
+  "layers": {
+    "background": "background.png",
+    "character": "character.png",
+    "mouth_open": "mouth_open.png",
+    "mouth_closed": "mouth_closed.png",
+    "eyes_open": "eyes_open.png",
+    "eyes_closed": "eyes_closed.png"
+  },
+  "animation": {
+    "default_mode": "idle",
+    "blink_interval": 3.0,
+    "breathing_enabled": true,
+    "breathing_amplitude": 0.02,
+    "sway_enabled": true
+  },
+  "emotions": [
+    {
+      "name": "neutral",
+      "layers": {}
+    },
+    {
+      "name": "happy",
+      "layers": {
+        "eyes_open": "emotions/eyes_happy.png"
+      }
+    },
+    {
+      "name": "sad",
+      "layers": {
+        "eyes_open": "emotions/eyes_sad.png"
+      }
+    }
+  ],
+  "compatibility": {
+    "animatediff_version": "1.0.0",
+    "min_comfyui_version": "0.1.0",
+    "sd_version": "1.5"
+  },
+  "tags": ["anime", "character", "default", "template"]
+}
+
