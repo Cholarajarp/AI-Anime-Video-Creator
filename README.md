@@ -292,7 +292,4 @@ http://localhost:7860
 
 **Start Creating Now!** 🎬✨
 
-```batch
-RUN_PRODUCTION.bat
-```
 
