@@ -1,6 +1,5 @@
 # 🎬 AI Anime Video Creator 
 
-[![Production Ready](https://img.shields.io/badge/Status-Production%20Ready-brightgreen)]()
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue)]()
 [![License MIT](https://img.shields.io/badge/License-MIT-yellow)]()
 
