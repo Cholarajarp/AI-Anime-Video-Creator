@@ -269,8 +269,6 @@ AI-video-creator-app/
 
 ## 📚 Documentation
 
-- **QUICK_START.md** - Fast reference guide
-- **FINAL_STATUS.md** - Complete status report
 - **Help Tab** - In-app guide
 
 ## 📞 Quick Commands
