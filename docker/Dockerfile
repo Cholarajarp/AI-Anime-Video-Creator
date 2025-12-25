@@ -8,7 +8,8 @@
 # -----------------------------------------------------------------------------
 # Stage 1: Base image with CUDA support
 # -----------------------------------------------------------------------------
-FROM nvidia/cuda:12.1.1-cudnn8-runtime-ubuntu22.04 AS base
+FROM python:3.10-slim
+
 
 # Prevent interactive prompts during package installation
 ENV DEBIAN_FRONTEND=noninteractive
