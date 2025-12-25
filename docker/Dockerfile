@@ -57,7 +57,7 @@ WORKDIR /app
 COPY requirements.txt .
 
 # Install PyTorch with CUDA support
-RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+RUN pip install torch torchvision torchaudio
 
 # Install remaining Python dependencies
 RUN pip install -r requirements.txt
