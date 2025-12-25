@@ -1,30 +1,23 @@
 # =============================================================================
-# AI Video Creator - Docker Compose Configuration
+# AI Anime Video Creator - Azure CPU Deployment
 # =============================================================================
-# Complete deployment stack with ComfyUI, Redis, and the main application
+# Services:
+#   - app   : Main application
+#   - redis : Background job queue
 # =============================================================================
 
-version: '3.9'
+version: "3.9"
 
 services:
   # ===========================================================================
-  # Main Application - Anime Video Creator
+  # Main Application
   # ===========================================================================
   app:
+    container_name: anime-video-creator
     build:
       context: ..
       dockerfile: docker/Dockerfile
-    container_name: anime-video-creator
     restart: unless-stopped
-
-    # GPU Support
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 1
-              capabilities: [gpu]
 
     ports:
       - "7860:7860"
@@ -32,27 +25,17 @@ services:
     environment:
       - HOST=0.0.0.0
       - PORT=7860
-      - COMFYUI_HOST=comfyui
-      - COMFYUI_PORT=8188
       - REDIS_URL=redis://redis:6379/0
       - DATABASE_URL=sqlite+aiosqlite:///./data/jobs.db
       - LOG_LEVEL=INFO
-      - WAIT_FOR_COMFYUI=true
+      - WAIT_FOR_COMFYUI=false
 
     volumes:
-      # Persistent data
       - app_data:/app/data
       - app_outputs:/app/outputs
       - app_logs:/app/logs
 
-      # Shared model storage with ComfyUI
-      - models_checkpoints:/app/models/checkpoints
-      - models_motion:/app/models/motion_modules
-      - models_loras:/app/models/loras
-      - models_vae:/app/models/vae
-
     depends_on:
-      - comfyui
       - redis
 
     networks:
@@ -66,61 +49,12 @@ services:
       start_period: 60s
 
   # ===========================================================================
-  # ComfyUI - Stable Diffusion Backend
-  # ===========================================================================
-  comfyui:
-    image: ghcr.io/ai-dock/comfyui:latest
-    container_name: comfyui-backend
-    restart: unless-stopped
-
-    # GPU Support
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 1
-              capabilities: [gpu]
-
-    ports:
-      - "8188:8188"
-
-    environment:
-      - CLI_ARGS=--listen 0.0.0.0 --port 8188
-
-    volumes:
-      # Model storage
-      - models_checkpoints:/opt/ComfyUI/models/checkpoints
-      - models_motion:/opt/ComfyUI/custom_nodes/ComfyUI-AnimateDiff-Evolved/models
-      - models_loras:/opt/ComfyUI/models/loras
-      - models_vae:/opt/ComfyUI/models/vae
-
-      # Output storage
-      - comfyui_output:/opt/ComfyUI/output
-
-      # Custom nodes persistence
-      - comfyui_custom_nodes:/opt/ComfyUI/custom_nodes
-
-    networks:
-      - app_network
-
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8188/system_stats"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
-      start_period: 120s
-
-  # ===========================================================================
-  # Redis - Job Queue Backend
+  # Redis - Job Queue
   # ===========================================================================
   redis:
     image: redis:7-alpine
     container_name: redis-queue
     restart: unless-stopped
-
-    ports:
-      - "6379:6379"
 
     volumes:
       - redis_data:/data
@@ -136,34 +70,8 @@ services:
       timeout: 5s
       retries: 5
 
-  # ===========================================================================
-  # Nginx - Reverse Proxy (Production)
-  # ===========================================================================
-  nginx:
-    image: nginx:alpine
-    container_name: nginx-proxy
-    restart: unless-stopped
-
-    ports:
-      - "80:80"
-      - "443:443"
-
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./ssl:/etc/nginx/ssl:ro
-      - app_outputs:/var/www/outputs:ro
-
-    depends_on:
-      - app
-
-    networks:
-      - app_network
-
-    profiles:
-      - production
-
 # =============================================================================
-# Networks
+# Network
 # =============================================================================
 networks:
   app_network:
@@ -173,21 +81,7 @@ networks:
 # Volumes
 # =============================================================================
 volumes:
-  # Application data
   app_data:
   app_outputs:
   app_logs:
-
-  # Shared model storage
-  models_checkpoints:
-  models_motion:
-  models_loras:
-  models_vae:
-
-  # ComfyUI specific
-  comfyui_output:
-  comfyui_custom_nodes:
-
-  # Redis data
   redis_data:
-
