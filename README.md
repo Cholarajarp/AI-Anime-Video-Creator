@@ -18,12 +18,6 @@
 - **Particle Systems** - Floating particles, energy effects, magical elements
 - **Visual Enhancements** - Glow, blur, motion blur, contrast adjustment
 
-### 🎬 **Cinematic & Advanced Animation (New!)**
-- **Veo-3 Style Generation** - Depth-aware cinematic lighting and continuous camera motion
-- **Template System** - Import custom character templates (PNG layers)
-- **Live Motion** - Automatic eye blinking, breathing, and micro-movements
-- **Lip Sync** - Audio-driven mouth animation without heavy ML models
-- **Fast Render Mode** - Generate videos in seconds using procedural animation (No GPU required)
 
 ### 🌍 **Multi-Language Support (6+ Languages)**
 | Language | Voices | Auto-Translation |
@@ -245,9 +239,6 @@ AI-video-creator-app/
 
 ---
 
-## 📚 Documentation
-
-- **Help Tab** - In-app guide
 
 ## 📞 Quick Commands
 
